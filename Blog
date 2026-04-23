@@ -1,0 +1,68 @@
+//Clase Blog:
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class Blog {
+    private static int consecutivo = 1;
+    private int codigo;
+    private String nombre;
+    private String descripcion;
+    private LocalDateTime fechaCreacion;
+    private List<Publicacion> publicaciones;
+
+    public Blog(String nombre, String descripcion) {
+        this.codigo = consecutivo++;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.fechaCreacion = LocalDateTime.now();
+        this.publicaciones = new ArrayList<>();
+    }
+
+    public void crearPublicacion(String titulo, String texto, String nombreCreador) {
+        this.publicaciones.add(new Publicacion(titulo, texto, nombreCreador));
+    }
+
+    // Funcionalidad: Retornar Map<Integer, String> con número y título
+    public Map<Integer, String> obtenerTitulosPublicaciones() {
+        Map<Integer, String> mapa = new HashMap<>();
+        for (Publicacion p : publicaciones) {
+            mapa.put(p.getCodigo(), p.getTitulo());
+        }
+        return mapa;
+    }
+
+    // Funcionalidad: Agregar comentario buscando la publicación por código
+    public void agregarComentario(int numeroPublicacion, String email, String ip, String texto) {
+        for (Publicacion p : publicaciones) {
+            if (p.getCodigo() == numeroPublicacion) {
+                p.agregarComentario(email, ip, texto);
+                break;
+            }
+        }
+    }
+
+    // Funcionalidad: Borrar comentario por código de publicación y posición
+    public void borrarComentario(int numeroPublicacion, int posicion) {
+        for (Publicacion p : publicaciones) {
+            if (p.getCodigo() == numeroPublicacion) {
+                p.borrarComentario(posicion);
+                break;
+            }
+        }
+    }
+
+    // Funcionalidad: Obtener representación String de una publicación específica
+    public String obtenerPublicacion(int numeroPublicacion) {
+        for (Publicacion p : publicaciones) {
+            if (p.getCodigo() == numeroPublicacion) {
+                return p.toString();
+            }
+        }
+        return "No existe una publicación con el código: " + numeroPublicacion;
+    }
+
+    public int getCodigo() { return codigo; }
+}
