@@ -1,0 +1,30 @@
+//Clase comentario:
+import java.time.LocalDateTime;
+
+public class Comentario {
+    private LocalDateTime fechaCreacion;
+    private String email;
+    private String ip;
+    private String texto;
+
+    public Comentario(String email, String ip, String texto) {
+        this.fechaCreacion = LocalDateTime.now();
+        this.email = email;
+        this.ip = ip;
+        this.texto = texto;
+    }
+
+    // Getters y Setters
+    public LocalDateTime getFechaCreacion() { return fechaCreacion; }
+    public String getEmail() { return email; }
+    public String getIp() { return ip; }
+    public String getTexto() { return texto; }
+
+    public void setEmail(String email) { this.email = email; }
+    public void setTexto(String texto) { this.texto = texto; }
+
+    @Override
+    public String toString() {
+        return "Autor: " + email + " | IP: " + ip + " | Comentario: " + texto;
+    }
+}
